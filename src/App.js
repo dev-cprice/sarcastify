@@ -34,6 +34,8 @@ function App() {
           onChange={onChange}
           value={value}
           placeholder="PlAcE yOuR tExT hErE"
+          autoCorrect={false}
+          autoComplete={false}
         />
         <button
           className={cx({ "btn-disabled": isButtonDisabled })}
