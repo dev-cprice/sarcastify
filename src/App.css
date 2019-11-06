@@ -17,15 +17,6 @@ h1 {
   color: #745c97;
 }
 
-button {
-  background-color: #d597ce;
-  border-color: #d597ce;
-  border-radius: 3px;
-  color: rgba(0, 0, 0, 0.54);
-  font-weight: 700;
-  padding: 0.5rem;
-}
-
 textarea {
   border: 0;
   border-radius: 0.1875rem;
@@ -38,10 +29,4 @@ textarea {
   max-height: 500px;
   max-width: 100%;
   min-width: 50vw;
-}
-
-.btn-disabled {
-  background-color: #c0c0c0;
-  border-color: #c0c0c0;
-  color: rgba(0, 0, 0, 0.28);
 }

@@ -1,28 +1,17 @@
 import React from "react";
-import classNames from "classnames/bind";
 import sarcastify from "./sarcastify";
-import styles from "./App.css";
-
-const cx = classNames.bind(styles);
+import CopyButton from "./CopyButton";
+import "./App.css";
 
 function App() {
-  const [value, setValue] = React.useState("");
+  const [sarcasticText, setSarcasticText] = React.useState("");
   const sarcasticRef = React.useRef(null);
 
-  const sarcasticText = React.useMemo(() => sarcastify(value), [value]);
-
   const onChange = React.useCallback(event => {
-    setValue(event.target.value);
+    setSarcasticText(sarcastify(event.target.value));
   }, []);
 
-  const onCopy = React.useCallback(() => {
-    const { current: sarcastic } = sarcasticRef;
-
-    document.getSelection().selectAllChildren(sarcastic);
-    document.execCommand("copy");
-  }, []);
-
-  const isButtonDisabled = !value.length;
+  const isButtonDisabled = !sarcasticText.length;
 
   return (
     <div className="App">
@@ -32,23 +21,13 @@ function App() {
         <textarea
           id="sarcastic-input"
           onChange={onChange}
-          value={value}
           placeholder="PlAcE yOuR tExT hErE"
-          autoCorrect={false}
-          autoComplete={false}
         />
-        <button
-          className={cx({ "btn-disabled": isButtonDisabled })}
-          disabled={isButtonDisabled}
-          type="button"
-          onClick={onCopy}
-        >
-          COPY RESULT
-        </button>
+        <CopyButton nodeRef={sarcasticRef} isDisabled={isButtonDisabled} />
         <h2>Result:</h2>
         <div ref={sarcasticRef}>
-          {sarcasticText.split("\n").map(line => (
-            <div key={line}>{line}</div>
+          {sarcasticText.split("\n").map((line, i) => (
+            <div key={line + i}>{line}</div>
           ))}
         </div>
       </header>
