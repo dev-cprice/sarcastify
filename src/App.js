@@ -1,8 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
+  const [date, setDate] = React.useState("");
+
+  React.useEffect(() => {
+    async function getDate() {
+      const res = await fetch("/api/date");
+      const newDate = await res.text();
+      setDate(newDate);
+    }
+    getDate();
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +29,7 @@ function App() {
         >
           Learn React
         </a>
+        {date}
       </header>
     </div>
   );
