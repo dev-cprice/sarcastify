@@ -1,35 +1,54 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import classNames from "classnames/bind";
+import sarcastify from "./sarcastify";
+import styles from "./App.css";
+
+const cx = classNames.bind(styles);
 
 function App() {
-  const [date, setDate] = React.useState("");
+  const [value, setValue] = React.useState("");
+  const sarcasticRef = React.useRef(null);
 
-  React.useEffect(() => {
-    async function getDate() {
-      const res = await fetch("/api/sarcastic-response");
-      const newDate = await res.text();
-      setDate(newDate);
-    }
-    getDate();
+  const sarcasticText = React.useMemo(() => sarcastify(value), [value]);
+
+  const onChange = React.useCallback(event => {
+    setValue(event.target.value);
   }, []);
+
+  const onCopy = React.useCallback(() => {
+    const { current: sarcastic } = sarcasticRef;
+
+    document.getSelection().selectAllChildren(sarcastic);
+    document.execCommand("copy");
+  }, []);
+
+  const isButtonDisabled = !value.length;
 
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <h1>SaRcAsTiFy</h1>
+        <label htmlFor="sarcastic-input">Place your text here:</label>
+        <textarea
+          id="sarcastic-input"
+          onChange={onChange}
+          value={value}
+          placeholder="PlAcE yOuR tExT hErE"
+        />
+        <button
+          className={cx({ "btn-disabled": isButtonDisabled })}
+          disabled={isButtonDisabled}
+          type="button"
+          onClick={onCopy}
         >
-          Learn React
-        </a>
-        {date}
+          COPY RESULT
+        </button>
+        <h2>Result:</h2>
+        <div ref={sarcasticRef}>
+          {sarcasticText.split("\n").map(line => (
+            <div key={line}>{line}</div>
+          ))}
+        </div>
       </header>
     </div>
   );

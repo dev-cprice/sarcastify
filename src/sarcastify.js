@@ -1,10 +1,14 @@
 export default function sarcastify(str = "") {
-  return str
-    .split(" ")
-    .map((word, i) =>
-      [...word]
-        .map((c, j) => ((j + i) % 2 === 0 ? c.toUpperCase() : c.toLowerCase()))
-        .join("")
-    )
-    .join(" ");
+  let i = 0;
+
+  return [...str]
+    .map(c => {
+      let result = c;
+      if (/^[A-Za-z]$/.test(c)) {
+        result = i % 2 === 0 ? c.toUpperCase() : c.toLowerCase();
+        i++;
+      }
+      return result;
+    })
+    .join("");
 }

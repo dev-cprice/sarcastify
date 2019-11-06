@@ -2,12 +2,8 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
 .App-header {
-  background-color: #282c34;
+  background-color: #39375b;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -17,6 +13,35 @@
   color: white;
 }
 
-.App-link {
-  color: #09d3ac;
+h1 {
+  color: #745c97;
+}
+
+button {
+  background-color: #d597ce;
+  border-color: #d597ce;
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.54);
+  font-weight: 700;
+  padding: 0.5rem;
+}
+
+textarea {
+  border: 0;
+  border-radius: 0.1875rem;
+  color: #fff;
+  font-size: 18px;
+  background-color: rgba(0, 0, 0, 0.54);
+  height: 120px;
+  margin: 1.25rem;
+  margin-bottom: 1.5rem;
+  max-height: 500px;
+  max-width: 100%;
+  min-width: 50vw;
+}
+
+.btn-disabled {
+  background-color: #c0c0c0;
+  border-color: #c0c0c0;
+  color: rgba(0, 0, 0, 0.28);
 }
